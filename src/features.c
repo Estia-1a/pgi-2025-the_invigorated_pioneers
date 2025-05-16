@@ -16,19 +16,16 @@ void helloWorld() {
 }
 
 
-void dimension(char *source_path) {
+void dimension(const char *source_path) {
     unsigned char *data = NULL;
     int width = 0, height = 0, channels = 0;
 
     printf("Appel de dimension : %s\n", source_path);
 
-    if (read_image_data(source_path, &data, &width, &height, &channels)) {
-        printf("dimension: %d, %d\n", width, height);
-    } else {
-        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
-    }
+    read_image_data(source_path, &data, &width, &height, &channels);
 
-    if (data != NULL) {
-        free(data);
-    }
+    printf("dimension: %d, %d\n", width, height);
+
+    free_image_data(data);
+
 }
