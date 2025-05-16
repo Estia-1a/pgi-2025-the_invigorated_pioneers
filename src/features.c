@@ -34,13 +34,29 @@ void first_pixel (char *source_path) {
     unsigned char *data = NULL;
     int width = 0, height = 0, channels = 0;
 
-    int res = read_image_data (source_path, &data, &width, &height, &channels);
+    read_image_data (source_path, &data, &width, &height, &channels);
 
     int R = data[0];
     int G = data[1];
     int B = data[2];
 
     printf("first_pixel: %d, %d, %d\n", R, G, B);
+    
+
+    free_image_data(data);
+}
+
+void tenth_pixel (char *source_path) {
+    unsigned char *data = NULL;
+    int width = 0, height = 0, channels = 0;
+
+    read_image_data (source_path, &data, &width, &height, &channels);
+
+    int R = data[27];
+    int G = data[28];
+    int B = data[29];
+
+    printf("tenth_pixel: %d, %d, %d\n", R, G, B);
     
 
     free_image_data(data);
