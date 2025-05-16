@@ -30,11 +30,11 @@ void dimension(char *source_path) {
 
 }
 
-void first_pixel(char *source_path) {
+void first_pixel (char *source_path) {
     unsigned char *data = NULL;
     int width = 0, height = 0, channels = 0;
 
-    if (read_image_data(source_path, &data, &width, &height, &channels)) {
+    if (read_image_data (source_path, &data, &width, &height, &channels)) {
         if (channels >= 3) {
             int r = data[0];
             int g = data[1];
