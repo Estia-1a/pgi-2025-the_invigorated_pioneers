@@ -34,16 +34,14 @@ void first_pixel (char *source_path) {
     unsigned char *data = NULL;
     int width = 0, height = 0, channels = 0;
 
-    if (read_image_data (source_path, &data, &width, &height, &channels)) {
-        if (channels >= 3) {
-            int r = data[0];
-            int g = data[1];
-            int b = data[2];
-            printf("first_pixel: %d, %d, %d\n", r, g, b);
-        }
-    }
+    int res = read_image_data (source_path, &data, &width, &height, &channels);
 
-    if (data != NULL) {
-        free(data);
-    }
+    int R = data[0];
+    int G = data[1];
+    int B = data[2];
+
+    printf("first_pixel: %d, %d, %d\n", R, G, B);
+    
+
+    free_image_data(data);
 }
