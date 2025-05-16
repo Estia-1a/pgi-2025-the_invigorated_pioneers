@@ -40,11 +40,7 @@ void first_pixel(char *source_path) {
             int g = data[1];
             int b = data[2];
             printf("first_pixel: %d, %d, %d\n", r, g, b);
-        } else {
-            fprintf(stderr, "[ERREUR] Moins de 3 canaux, image non RGB.\n");
         }
-    } else {
-        fprintf(stderr, "[ERREUR] Échec de la lecture de l’image %s\n", source_path);
     }
 
     if (data != NULL) {
