@@ -146,4 +146,3 @@ jobs:
           echo "# No evaluation needed" > $GITHUB_STEP_SUMMARY
           exit 0
         continue-on-error: true
-
