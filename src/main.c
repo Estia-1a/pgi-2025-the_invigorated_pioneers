@@ -80,9 +80,7 @@ int main(int argc, char **argv) {
 
   else if (strncmp( configuration.command, "max_pixel", 11 ) == 0 ) {
     
-      int x = atoi(configuration.arguments[0]);
-      int y = atoi(configuration.arguments[1]);
-      max_pixel(configuration.filenames[0] ,x, y);
+      max_pixel(configuration.filenames[0]);
   }
 
 

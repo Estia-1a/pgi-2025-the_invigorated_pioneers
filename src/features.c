@@ -138,38 +138,32 @@ void color_blue(char *filename){
     
 }
 
-void max_pixel(char *filename, int x , int y){
+void max_pixel(char *filename){
     unsigned char *data = NULL;
-    int width = 0, height = 0, channels = 0;
+    int width, height, channels, R, G, B, s=0, m=0,x , y, M, N, O;
+
+
     read_image_data (filename, &data, &width, &height, &channels);
-    int i = 0;
-    int R = data[0];
-    int G = data[1];
-    int B = data[2];
-    int b = 0 ;
-    int a = 0 ; 
-    int M = 0;
-    int N = 0 ;
-    int O = 0 ;
-
-        while (i <(height * width) ){
-            R= data [3*i];
-            G = data[3*i + 1];
-            B = data [3*i + 2];
-
-            a=R+G+B;
-
-            i++;
-            if (a>b){
-                b = a ; 
-                M = R ;
-               N = G ;
-               O = B ;
-
-            }
-           
+    
+    for (int i = 0;i < width*height;i++){
+        R = data[(i*channels)];
+        G = data[(i*channels)+1];
+        B = data[(i*channels)+2];
+        
+        s += R+G+B;
+        if (s>m){
+            m=s;
+            s=0;
+            M=R;
+            N=G;
+            O=B;
+            x=i % width;
+            y=i / width;
         }
-         printf ("max_pixel(%d, %d): %d, %d, %d",x ,y, M, N, O);
-free_image_data(data);
+    }
+       
+    printf ("max_pixel (%d, %d): %d, %d, %d",x ,y, M, N, O);
+
+    free_image_data(data);
 }
 
