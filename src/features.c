@@ -86,3 +86,11 @@ void print_pixel( char *filename, int x, int y ) {
 
     free_image_data(data);
 }
+
+
+void min_pixel(char *source_path) {
+
+
+
+
+}
