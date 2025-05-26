@@ -28,4 +28,6 @@ void color_blue(char *filename);
 
 void color_gray(char *filename);
 
+void color_invert(char *filename);
+
 #endif
