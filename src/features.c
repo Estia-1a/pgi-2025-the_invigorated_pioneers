@@ -88,3 +88,7 @@ void print_pixel( char *filename, int x, int y ) {
 
     free_image_data(data);
 }
+
+void print_pixele( char *filename, int x, int y ) {
+
+}
