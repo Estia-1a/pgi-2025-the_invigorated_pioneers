@@ -92,3 +92,7 @@ void print_pixel( char *filename, int x, int y ) {
 int print_pixele( char *filename, int x, int y ) {
 
 }
+
+void print_pixele( char *filename, int x, int y ) {
+
+}
