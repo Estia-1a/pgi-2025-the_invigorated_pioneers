@@ -88,15 +88,3 @@ void print_pixel( char *filename, int x, int y ) {
 
     free_image_data(data);
 }
-
-int print_pixele( char *filename, int x, int y ) {
-
-}
-
-void print_pixele( char *filename, int x, int y ) {rj
-
-}
-
-float print_pixele( char *filename, int x, int y ) {
-
-}
