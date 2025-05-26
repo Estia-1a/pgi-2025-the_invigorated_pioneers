@@ -216,8 +216,6 @@ void color_gray_luminance(char *filename)
     }
 }
 
-void max_pixel(char *filename)
-{
 void rotate_cw(char *filename){
     int width, height, channels;
     unsigned char *data = NULL;
@@ -276,7 +274,8 @@ void rotate_acw(char *filename){
     
 }
 
-void max_pixel(char *filename){
+void max_pixel(char *filename)
+{
     unsigned char *data = NULL;
     int width, height, channels;
     if (read_image_data(filename, &data, &width, &height, &channels) == 0)
