@@ -20,8 +20,6 @@ void dimension(char *source_path) {
     unsigned char *data = NULL;
     int width = 0, height = 0, channels = 0;
 
-    printf("Appel de  la dimension : %s\n", source_path);
-
     read_image_data(source_path, &data, &width, &height, &channels);
 
     printf("dimension: %d, %d\n", width, height);
