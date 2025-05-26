@@ -20,4 +20,10 @@ void min_pixel(char *source_path);
 
 void stat_report(char *source_path);
 
+void color_red(char *filename);
+
+void color_green(char *filename);
+
+void color_blue(char *filename);
+
 #endif
