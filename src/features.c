@@ -87,9 +87,9 @@ void print_pixel( char *filename, int x, int y ) {
     free_image_data(data);
 }
 
-void max_pixel(char *filename, int x , int y){
+void max_pixel(char *filename){
     unsigned char *data = NULL;
-    int width = 0, height = 0, channels = 0;
+    int width, height, channels;
     read_image_data (filename, &data, &width, &height, &channels);
     int i = 0;
     int R = data[0];
@@ -101,7 +101,7 @@ void max_pixel(char *filename, int x , int y){
     int N = 0 ;
     int O = 0 ;
 
-        while (i <(height * width) ){
+        while (i <((height * width *channels ){
             R= data [3*i];
             G = data[3*i + 1];
             B = data [3*i + 2];
