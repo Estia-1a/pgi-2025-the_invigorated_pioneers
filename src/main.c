@@ -107,6 +107,12 @@ int main(int argc, char **argv) {
     
   }
 
+  else if ( strncmp( configuration.command, "mirror_horizontal", 17 ) == 0 ) {
+    
+      mirror_horizontal(configuration.filenames[0]);
+    
+  }
+
 
   else if (strncmp( configuration.command, "max_pixel", 11 ) == 0 ) {
     
