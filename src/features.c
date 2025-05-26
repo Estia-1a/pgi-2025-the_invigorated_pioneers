@@ -88,3 +88,15 @@ void print_pixel( char *filename, int x, int y ) {
 
     free_image_data(data);
 }
+
+void stat_report(){
+    unsigned char *data = NULL;
+    int width = 0, height = 0, channels = 0;
+
+    read_image_data (filename, &data, &width, &height, &channels);
+    pixelRGB *pixel = get_pixel(data, width, height, channels, x, y);
+    printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
+
+    free_image_data(data);
+
+}
