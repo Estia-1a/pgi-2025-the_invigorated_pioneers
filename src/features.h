@@ -16,3 +16,5 @@ void print_pixel( char *filename, int x, int y );
 
 
 #endif
+
+void naps (char *jul);
