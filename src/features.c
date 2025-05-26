@@ -86,3 +86,20 @@ void print_pixel( char *filename, int x, int y ) {
 
     free_image_data(data);
 }
+
+void color_red(char *filename){
+    int width, height, channels;
+    unsigned char *data = NULL;
+
+    read_image_data (filename, &data, &width, &height,  &channels);
+
+    for (int i = 0;i < width*height*channels;i += channels){
+        data[i+1]=0;
+        data[i+2]=0;
+    }
+
+    if (write_image_data("image_out.bmp", data, width, height) != 0) {
+        free_image_data(data);
+    }
+    
+}

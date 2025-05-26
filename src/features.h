@@ -18,4 +18,6 @@ void max_pixel(int x , int y);
 
 void stat_report(char *source_path);
 
+void color_red(char *filename);
+
 #endif
