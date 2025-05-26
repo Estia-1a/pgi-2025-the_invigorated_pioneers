@@ -103,6 +103,7 @@ void color_red(char *filename){
     }
     
 }
+
 void max_pixel(char *filename, int x , int y){
     unsigned char *data = NULL;
     int width = 0, height = 0, channels = 0;
