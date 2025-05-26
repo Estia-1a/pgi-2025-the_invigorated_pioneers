@@ -87,6 +87,7 @@ void print_pixel( char *filename, int x, int y ) {
     free_image_data(data);
 }
 
+<<<<<<< HEAD
 void max_pixel(char*filename, int x , int y){
     unsigned char *data = NULL;
     int width = 0, height = 0, channels = 0;
@@ -121,3 +122,12 @@ void max_pixel(char*filename, int x , int y){
          printf ("max_pixel(%d, %d): %d, %d, %d",x ,y, M, N, O);
 free_image_data(data);
 }
+=======
+
+void min_pixel(char *source_path) {
+
+
+
+
+}
+>>>>>>> 375e2f66483fd2f91fc2d3ac9f5854bbd9aebbaa
