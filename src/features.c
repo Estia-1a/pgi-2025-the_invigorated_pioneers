@@ -103,3 +103,38 @@ void color_red(char *filename){
     }
     
 }
+void max_pixel(char *filename, int x , int y){
+    unsigned char *data = NULL;
+    int width = 0, height = 0, channels = 0;
+    read_image_data (filename, &data, &width, &height, &channels);
+    int i = 0;
+    int R = data[0];
+    int G = data[1];
+    int B = data[2];
+    int b = 0 ;
+    int a = 0 ; 
+    int M = 0;
+    int N = 0 ;
+    int O = 0 ;
+
+        while (i <(height * width) ){
+            R= data [3*i];
+            G = data[3*i + 1];
+            B = data [3*i + 2];
+
+            a=R+G+B;
+
+            i++;
+            if (a>b){
+                b = a ; 
+                M = R ;
+               N = G ;
+               O = B ;
+
+            }
+           
+        }
+         printf ("max_pixel(%d, %d): %d, %d, %d",x ,y, M, N, O);
+free_image_data(data);
+}
+
