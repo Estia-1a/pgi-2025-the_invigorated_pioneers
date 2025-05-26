@@ -70,7 +70,7 @@ void second_line (char *source_path) {
     int G = data[3*width +1];
     int B = data[3*width +2];
 
-    printf("secon_line: %d, %d, %d\n", R, G, B);
+    printf("second_line: %d, %d, %d\n", R, G, B);
     
 
     free_image_data(data);
