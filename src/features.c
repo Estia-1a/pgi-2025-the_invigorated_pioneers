@@ -88,17 +88,3 @@ void print_pixel( char *filename, int x, int y ) {
 
     free_image_data(data);
 }
-void stat_report(){
-    read_image_data (source_path, &data, &width, &height, &channels);
-
-    int R = data[3*width];
-    int G = data[3*width +1];
-    int B = data[3*width +2];
-
-    printf("secon_line: %d, %d, %d\n", R, G, B);
-    read_image_data (filename, &data, &width, &height, &channels);
-    pixelRGB *pixel = get_pixel(data, width, height, channels, x, y);
-    printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
-
-    free_image_data(data);
-}
