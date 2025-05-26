@@ -118,6 +118,10 @@ int main(int argc, char **argv) {
     
       max_pixel(configuration.filenames[0]);
   }
+  else if (strncmp( configuration.command, "min_pixel", 11 ) == 0 ) {
+    
+      min_pixel(configuration.filenames[0]);
+  }
 
   
 

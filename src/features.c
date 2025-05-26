@@ -312,3 +312,41 @@ void max_pixel(char *filename)
         free_image_data(data);
     }
 }
+void min_pixel(char *filename)
+{
+    unsigned char *data = NULL;
+    int width, height, channels;
+    if (read_image_data(filename, &data, &width, &height, &channels) == 0)
+    {
+        printf("Erreur");
+    }
+    else
+    {
+        read_image_data(filename, &data, &width, &height, &channels);
+
+        int min_r = 255, min_g = 255, min_b = 255;
+        int min_x = 0, min_y = 0;
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                pixelRGB *pixel = get_pixel(data, width, height, channels, x, y);
+                if ((pixel->R + pixel->G + pixel->B) < (min_r + min_g + min_b))
+                {
+                    min_r = pixel->R;
+                    min_g = pixel->G;
+                    min_b = pixel->B;
+                    min_x = x;
+                    min_y = y;
+
+                    
+                }
+            }
+        }
+
+        printf("min_pixel (%d, %d): %d, %d, %d", min_x, min_y, min_r, min_g, min_b);
+
+        free_image_data(data);
+    }
+}
