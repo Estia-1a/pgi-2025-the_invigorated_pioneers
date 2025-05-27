@@ -280,7 +280,7 @@ void mirror_horizontal(char *filename){
 
     read_image_data (filename, &data, &width, &height,  &channels);
 
-    unsigned char *rotate_mirror = (unsigned char *)malloc(width * height * channels);
+    unsigned char *rotate_mirrorh = (unsigned char *)malloc(width * height * channels);
 
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
@@ -289,17 +289,42 @@ void mirror_horizontal(char *filename){
             int dst_idx = (j * width + (width - 1 - i)) * channels;
 
             for (int c = 0; c < channels; c++) {
-                rotate_mirror[dst_idx + c] = data[src_idx + c];
+                rotate_mirrorh[dst_idx + c] = data[src_idx + c];
             }
         }
     }
 
-    if (write_image_data("image_out.bmp", rotate_mirror, width, height) != 0) {
-        free_image_data(rotate_mirror);
+    if (write_image_data("image_out.bmp", rotate_mirrorh, width, height) != 0) {
+        free_image_data(rotate_mirrorh);
     }
 }
 
 void mirror_vertical(char *filename){
+    int width, height, channels;
+    unsigned char *data = NULL;
+
+    read_image_data (filename, &data, &width, &height,  &channels);
+
+    unsigned char *rotate_mirrorv = (unsigned char *)malloc(width * height * channels);
+
+    for (int j = 0; j < height; j++) {
+        for (int i = 0; i < width; i++) {
+
+            int src_idx = (j * width + i) * channels;
+            int dst_idx = ((height - 1 - j) * width + i) * channels;
+
+            for (int c = 0; c < channels; c++) {
+                rotate_mirrorv[dst_idx + c] = data[src_idx + c];
+            }
+        }
+    }
+
+    if (write_image_data("image_out.bmp", rotate_mirrorv, width, height) != 0) {
+        free_image_data(rotate_mirrorv);
+    }
+}
+
+void mirror_total(char *filename){
     int width, height, channels;
     unsigned char *data = NULL;
 
@@ -311,7 +336,7 @@ void mirror_vertical(char *filename){
         for (int i = 0; i < width; i++) {
 
             int src_idx = (j * width + i) * channels;
-            int dst_idx = ((height - 1 - j) * width + i) * channels;
+            int dst_idx = ((height - 1 - j) * width + (width - 1 - i)) * channels;
 
             for (int c = 0; c < channels; c++) {
                 rotate_mirror[dst_idx + c] = data[src_idx + c];
