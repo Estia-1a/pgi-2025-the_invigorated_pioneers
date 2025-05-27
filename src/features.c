@@ -457,7 +457,7 @@ void max_component R(char *filename)
             }
         }
 
-        printf("max_pixel R(%d, %d): %d, %d, %d", max_x, max_y, max_r);
+        printf("max_component R(%d, %d): %d, %d, %d", max_x, max_y, max_r);
 
         free_image_data(data);
     }
