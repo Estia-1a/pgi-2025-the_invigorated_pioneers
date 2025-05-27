@@ -426,7 +426,7 @@ void min_pixel(char *filename){
     }
 }
     
-void max_component R(char *filename)
+void max_componentR(char *filename)
 {
     unsigned char *data = NULL;
     int width, height, channels;
