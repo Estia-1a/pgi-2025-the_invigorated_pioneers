@@ -312,8 +312,8 @@ void max_pixel(char *filename)
         free_image_data(data);
     }
 }
-void min_pixel(char *filename)
-{
+
+void min_pixel(char *filename){
     unsigned char *data = NULL;
     int width, height, channels;
     if (read_image_data(filename, &data, &width, &height, &channels) == 0)
@@ -324,8 +324,8 @@ void min_pixel(char *filename)
     {
         read_image_data(filename, &data, &width, &height, &channels);
 
-        int min_r = 255, min_g = 255, min_b = 255;
-        int min_x = 0, min_y = 0;
+        int min_r = 256, min_g = 256, min_b = 256;
+        int min_x, min_y;
 
         for (int y = 0; y < height; y++)
         {
@@ -350,3 +350,4 @@ void min_pixel(char *filename)
         free_image_data(data);
     }
 }
+    
