@@ -42,6 +42,8 @@ void mirror_vertical(char *filename);
 
 void mirror_total(char *filename);
 
-void max_componentR(char *filename);
+void max_component(char *filename , char component);
+
+
 
 #endif

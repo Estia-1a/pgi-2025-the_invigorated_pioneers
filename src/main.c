@@ -134,10 +134,12 @@ int main(int argc, char **argv) {
     
       min_pixel(configuration.filenames[0]);
   }
-  else if (strncmp( configuration.command, "max_component", 11 ) == 0 ) {
-    
-      max_componentR(configuration.filenames[0]);
-  }
+else if (strncmp(configuration.command, "max_component", 13) == 0) {
+
+        max_component(configuration.filenames[0], 'R');
+
+
+}
 
   
 
