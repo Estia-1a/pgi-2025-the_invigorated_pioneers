@@ -1,0 +1,25 @@
+/home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.c: In function ‘stat_report’:
+/home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.c:92:1: error: number of arguments doesn’t match prototype
+   92 | void stat_report(){
+      | ^~~~
+In file included from /home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.c:4:
+/home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.h:19:6: error: prototype declaration
+   19 | void stat_report(char *source_path);
+      |      ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.c:96:22: error: ‘filename’ undeclared (first use in this function); did you mean ‘fileno’?
+   96 |     read_image_data (filename, &data, &width, &height, &channels);
+      |                      ^~~~~~~~
+      |                      fileno
+/home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.c:96:22: note: each undeclared identifier is reported only once for each function it appears in
+/home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.c:97:64: error: ‘x’ undeclared (first use in this function)
+   97 |     pixelRGB *pixel = get_pixel(data, width, height, channels, x, y);
+      |                                                                ^
+/home/runner/work/pgi-2025-the_invigorated_pioneers/pgi-2025-the_invigorated_pioneers/src/features.c:97:67: error: ‘y’ undeclared (first use in this function)
+   97 |     pixelRGB *pixel = get_pixel(data, width, height, channels, x, y);
+      |                                                                   ^
+gmake[2]: *** [CMakeFiles/freud.dir/build.make:93: CMakeFiles/freud.dir/src/features.c.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:87: CMakeFiles/freud.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
+
+The process '/usr/local/bin/cmake' failed with exit code 2
