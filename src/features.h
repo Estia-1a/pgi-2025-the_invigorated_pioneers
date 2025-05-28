@@ -42,4 +42,6 @@ void mirror_vertical(char *filename);
 
 void mirror_total(char *filename);
 
+void scale_crop(char *filename);
+
 #endif
