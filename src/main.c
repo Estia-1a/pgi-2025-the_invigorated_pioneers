@@ -140,7 +140,20 @@ int main(int argc, char **argv) {
     
       min_pixel(configuration.filenames[0]);
   }
+else if (strncmp(configuration.command, "max_component R", 15) == 0) {
 
+        max_component(configuration.filenames[0], 'R');
+}
+
+else if (strncmp(configuration.command, "max_component G", 15) == 0) {
+
+        max_component(configuration.filenames[0], 'G');
+}
+
+else if (strncmp(configuration.command, "max_component B", 15) == 0) {
+
+        max_component(configuration.filenames[0], 'B');
+}
   
 
 

@@ -44,4 +44,7 @@ void mirror_total(char *filename);
 
 void scale_crop(char *filename);
 
+void max_component(char *filename , char component);
+
+
 #endif

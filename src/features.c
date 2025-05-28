@@ -450,4 +450,46 @@ void min_pixel(char *filename){
         free_image_data(data);
     }
 }
-    
+
+void max_component(char *filename, char component)
+{
+    unsigned char *data = NULL;
+    int width, height, channels;
+
+    if (read_image_data(filename, &data, &width, &height, &channels) == 0)
+    {
+        printf("Erreur");
+        return;
+    }
+
+    int max_value = -1, max_x = -1, max_y = -1;
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            pixelRGB *pixel = get_pixel(data, width, height, channels, x, y);
+            int value = 0;
+        if (component == 'R') 
+        {
+        value = pixel->R ;
+        }
+        else if (component == 'G')
+        { 
+        value = pixel->G; 
+        }
+        else if (component == 'B') 
+        {
+        value = pixel->B; 
+        }
+            if (value > max_value)
+            {
+                max_value = value;
+                max_x = x;
+                max_y = y;
+            }
+        }
+    }
+    printf("max_component %c(%d, %d): %d\n", component, max_x, max_y, max_value);
+    free_image_data(data);
+}
