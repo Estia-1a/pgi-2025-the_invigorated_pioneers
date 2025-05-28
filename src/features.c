@@ -493,3 +493,45 @@ void max_component(char *filename, char component)
     printf("max_component %c(%d, %d): %d\n", component, max_x, max_y, max_value);
     free_image_data(data);
 }
+void min_component(char *filename, char component)
+{
+    unsigned char *data = NULL;
+    int width, height, channels;
+
+    if (read_image_data(filename, &data, &width, &height, &channels) == 0)
+    {
+        printf("Erreur");
+        return;
+    }
+
+    int min_value = 255, min_x = 255, min_y = 255;
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            pixelRGB *pixel = get_pixel(data, width, height, channels, x, y);
+            int value = 0;
+        if (component == 'R') 
+        {
+        value = pixel->R ;
+        }
+        else if (component == 'G')
+        { 
+        value = pixel->G; 
+        }
+        else if (component == 'B') 
+        {
+        value = pixel->B; 
+        }
+            if (value < min_value)
+            {
+                min_value = value;
+                min_x = x;
+                min_y = y;
+            }
+        }
+    }
+    printf("min_component %c(%d, %d): %d\n", component, min_x, min_y, min_value);
+    free_image_data(data);
+}

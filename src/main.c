@@ -145,6 +145,11 @@ else if (strncmp(configuration.command, "max_component R", 13) == 0) {
         max_component(configuration.filenames[0], component);
 }
 
+else if (strncmp(configuration.command, "min_component R", 13) == 0) {
+        char component = configuration.arguments[0][0];
+        min_component(configuration.filenames[0], component);
+}
+
 
 
 

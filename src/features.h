@@ -46,5 +46,7 @@ void scale_crop(char *filename);
 
 void max_component(char *filename , char component);
 
+void min_component(char *filename , char component);
+
 
 #endif
