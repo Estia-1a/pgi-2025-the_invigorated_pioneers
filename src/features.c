@@ -349,30 +349,47 @@ void mirror_total(char *filename){
     }
 }
 
-void scale_crop(char *filename){
+void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height){
     int width, height, channels;
     unsigned char *data = NULL;
 
-    read_image_data (filename, &data, &width, &height,  &channels);
+    if (read_image_data(filename, &data, &width, &height, &channels) == 0) {
+        printf("Erreur lors de la lecture de l'image.\n");
+        return;
+    }
 
-    unsigned char *rotate_mirror = (unsigned char *)malloc(width * height * channels);
+    int start_x = center_x - crop_width / 2;
+    int start_y = center_y - crop_height / 2;
 
-    for (int j = 0; j < height; j++) {
-        for (int i = 0; i < width; i++) {
+    // Clamp pour rester dans les limites
+    if (start_x < 0) start_x = 0;
+    if (start_y < 0) start_y = 0;
+    if (start_x + crop_width > width) crop_width = width - start_x;
+    if (start_y + crop_height > height) crop_height = height - start_y;
 
-            int src_idx = (j * width + i) * channels;
-            int dst_idx = ((height - 1 - j) * width + (width - 1 - i)) * channels;
+    unsigned char *cropped = malloc(crop_width * crop_height * channels);
+    if (!cropped) {
+        printf("Erreur d'allocation mémoire.\n");
+        free_image_data(data);
+        return;
+    }
 
+    // Copier les pixels du crop
+    for (int y = 0; y < crop_height; y++) {
+        for (int x = 0; x < crop_width; x++) {
             for (int c = 0; c < channels; c++) {
-                rotate_mirror[dst_idx + c] = data[src_idx + c];
+                int src_idx = ((start_y + y) * width + (start_x + x)) * channels + c;
+                int dst_idx = (y * crop_width + x) * channels + c;
+                cropped[dst_idx] = data[src_idx];
             }
         }
     }
 
-    if (write_image_data("image_out.bmp", rotate_mirror, width, height) != 0) {
-        free_image_data(rotate_mirror);
+    if (write_image_data("image_out.bmp", cropped, crop_width, crop_height) != 0) {
+        free_image_data(cropped);
     }
 }
+
 
 void max_pixel(char *filename)
 {
@@ -532,6 +549,6 @@ void min_component(char *filename, char component)
             }
         }
     }
-    printf("min_component %c(%d, %d): %d\n", component, min_x, min_y, min_value);
+    printf("min_component %c (%d, %d): %d\n", component, min_x, min_y, min_value);
     free_image_data(data);
 }

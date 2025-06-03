@@ -125,11 +125,25 @@ int main(int argc, char **argv) {
     
   }
 
-  else if ( strncmp( configuration.command, "scale_crop", 10 ) == 0 ) {
-    
-      scale_crop(configuration.filenames[0]);
-    
-  }
+  else if (strcmp(configuration.command, "scale_crop") == 0) {
+    // Trouve dans argv la position de "-c"
+    int pos_c = -1;
+    for (int j = 1; j < argc; j++) {
+        if (strcmp(argv[j], "-c") == 0) {
+            pos_c = j;
+            break;
+        }
+    }
+    if (pos_c != -1 && pos_c + 5 < argc) {
+        int cx = atoi(argv[pos_c + 2]); // pos_c+1 = "scale_crop", pos_c+2 = center_x
+        int cy = atoi(argv[pos_c + 3]);
+        int w = atoi(argv[pos_c + 4]);
+        int h = atoi(argv[pos_c + 5]);
+        scale_crop(configuration.filenames[0], cx, cy, w, h);
+    } else {
+        printf("Paramètres insuffisants pour scale_crop.\n");
+    }
+}
 
   else if (strncmp( configuration.command, "max_pixel", 11 ) == 0 ) {
     

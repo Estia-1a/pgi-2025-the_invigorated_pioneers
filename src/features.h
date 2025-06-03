@@ -42,7 +42,7 @@ void mirror_vertical(char *filename);
 
 void mirror_total(char *filename);
 
-void scale_crop(char *filename);
+void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height);
 
 void max_component(char *filename , char component);
 
