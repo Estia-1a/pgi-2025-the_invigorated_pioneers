@@ -627,15 +627,15 @@ void scale_nearest(char *filename, float scale)
     
     for (int y = 0; y < new_height; y++){
         for (int x = 0; x < new_width; x++){
-            int orig_x = (int)(x / scale);
-            int orig_y = (int)(y / scale);
+            int ox = (int)(x / scale);
+            int oy = (int)(y / scale);
 
-            if (orig_x >= width) orig_x = width -1;
-            if (orig_y >= height) orig_y = height -1;
+            if (ox >= width) ox = width -1;
+            if (oy >= height) oy = height -1;
 
-            for (int c = 0; c < channels; c++){
-                int src_idx = (orig_y * width + orig_x) * channels + c;
-                int dst_idx = (y * new_width + x) * channels + c;
+            for (int cc = 0; cc < channels; cc++){
+                int src_idx = (oy * width + ox) * channels + cc;
+                int dst_idx = (y * new_width + x) * channels + cc;
                 scaled_data[dst_idx] = data[src_idx];
             }
         }
