@@ -131,7 +131,7 @@ int main(int argc, char **argv) {
     
   }
 
-  /*else if (strcmp(configuration.command, "scale_crop") == 0) {
+   /*else if (strcmp(configuration.command, "scale_crop") == 0) {
     // Trouve dans argv la position de "-c"
     int pos_c = -1;
     for (int j = 1; j < argc; j++) {
