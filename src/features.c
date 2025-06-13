@@ -624,11 +624,6 @@ void scale_nearest(char *filename, float scale)
     int new_height = (int)(height * scale);
 
     unsigned char *scaled_data = (unsigned char*)malloc(new_width * new_height * channels);
-    if (!scaled_data){
-        printf("Erreur d'allocation mémoire.\n");
-        free_image_data(data);
-        return;
-    }
     
     for (int y = 0; y < new_height; y++){
         for (int x = 0; x < new_width; x++){
