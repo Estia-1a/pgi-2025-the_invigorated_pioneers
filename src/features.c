@@ -569,3 +569,44 @@ min_component(filename,'G');
 printf("\n");
 min_component(filename,'B');
 }
+
+
+void scale_nearest(char *filename, float scale)
+{
+    int width, height, channels;
+    unsigned char *data = NULL;
+
+    if (read_image_data(filename, &data, &width, &height, &channels) == 0) {
+        printf("Erreur lors de la lecture de l'image.\n");
+        return;
+    }
+    int new_width = (int)(width * scale);
+    int new_height = (int)(height * scale);
+
+    unsigned char *scaled_data = (unsigned char*)malloc(new_width * new_height * channels);
+    if (!scaled_data){
+        printf("Erreur d'allocation mémoire.\n");
+        free_image_data(data);
+        return;
+    }
+    
+    for (int y = 0; y < new_height; y++){
+        for (int x = 0; x < new_width; x++){
+            int orig_x = (int)(x / scale);
+            int orig_y = (int)(y / scale);
+
+            if (orig_x >= width) orig_x = width -1;
+            if (orig_y >= height) orig_y = height -1;
+
+            for (int c = 0; c < channels; c++){
+                int src_idx = (orig_y * width + orig_x) * channels + c;
+                int dst_idx = (y * new_width + x) * channels + c;
+                scaled_data[dst_idx] = data[src_idx];
+            }
+        }
+    }
+    if(write_image_data("image_out.bmp", scaled_data, new_width, new_height) !=0) {
+        free_image_data(scaled_data);
+    }
+    free_image_data(data);
+}
