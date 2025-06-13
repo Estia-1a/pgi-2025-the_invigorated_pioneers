@@ -169,7 +169,10 @@ else if (strncmp(configuration.command, "stat_report", 13) == 0) {
         stat_report (configuration.filenames[0]);
 }
 
-
+else if (strncmp(configuration.command, "scale_nearest", 13) == 0) {
+    float scale = atof(configuration.arguments[0]);
+    scale_nearest(configuration.filenames[0], scale);
+}
 
 
   /*
