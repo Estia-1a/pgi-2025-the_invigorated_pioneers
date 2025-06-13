@@ -521,7 +521,7 @@ void min_component(char *filename, char component)
         return;
     }
 
-    int min_value = 255, min_x = 255, min_y = 255;
+    int min_value = 256, min_x = 256, min_y = 256;
 
     for (int y = 0; y < height; y++)
     {
