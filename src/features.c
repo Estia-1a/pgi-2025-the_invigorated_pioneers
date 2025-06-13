@@ -1,6 +1,7 @@
 #include <estia-image.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "features.h"
 #include "utils.h"
 
@@ -389,16 +390,11 @@ void color_desaturate(char *filename){
     }
 }
 
-
-
 void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height){
     int width, height, channels;
     unsigned char *data = NULL;
 
-    if (read_image_data(filename, &data, &width, &height, &channels) == 0) {
-        printf("Erreur lors de la lecture de l'image.\n");
-        return;
-    }
+    read_image_data(filename, &data, &width, &height, &channels);
 
     int start_x = center_x - crop_width / 2;
     int start_y = center_y - crop_height / 2;
@@ -408,28 +404,23 @@ void scale_crop(char *filename, int center_x, int center_y, int crop_width, int 
     if (start_x + crop_width > width) crop_width = width - start_x;
     if (start_y + crop_height > height) crop_height = height - start_y;
 
-    unsigned char *cropped = malloc(crop_width * crop_height * channels);
-    if (!cropped) {
-        printf("Erreur d'allocation mémoire.\n");
-        free_image_data(data);
-        return;
-    }
+    unsigned char *crop = (unsigned char *)malloc(crop_width * crop_height * channels);
 
-    for (int y = 0; y < crop_height; y++) {
-        for (int x = 0; x < crop_width; x++) {
-            for (int c = 0; c < channels; c++) {
-                int src_idx = ((start_y + y) * width + (start_x + x)) * channels + c;
-                int dst_idx = (y * crop_width + x) * channels + c;
-                cropped[dst_idx] = data[src_idx];
+    for (int y = 0; y < crop_height; y++){
+        for (int x = 0; x < crop_width; x++){
+            int idx1 = ((start_y +y) * width + (start_x +x)) * channels;
+            int idx2 = (y * crop_width + x) * channels;
+
+            for (int c =0; c < channels; c++){
+                crop[idx2 + c] = data[idx1 + c];
             }
         }
     }
 
-    if (write_image_data("image_out.bmp", cropped, crop_width, crop_height) != 0) {
-        free_image_data(cropped);
+     if (write_image_data("image_out.bmp", crop, crop_width, crop_height) != 0) {
+        free_image_data(crop);
     }
 }
-
 
 void max_pixel(char *filename)
 {

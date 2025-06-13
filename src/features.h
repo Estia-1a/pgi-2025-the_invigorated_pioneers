@@ -44,8 +44,6 @@ void mirror_total(char *filename);
 
 void color_desaturate(char *filename);
 
-void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height);
-
 void max_component(char *filename , char component);
 
 void min_component(char *filename , char component);
@@ -53,6 +51,8 @@ void min_component(char *filename , char component);
 void stat_report(char *filename);
 
 void scale_nearest(char *filnename, float scale);
+
+void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height);
 
 
 #endif
