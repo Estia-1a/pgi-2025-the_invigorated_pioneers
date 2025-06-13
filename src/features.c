@@ -349,6 +349,48 @@ void mirror_total(char *filename){
     }
 }
 
+int min(int R, int G, int B){
+    int m = R < G ? R : G;
+    return (m < B) ? m : B;
+}
+
+int max(int R, int G, int B){
+    int M = R > G ? R : G;
+    return (M > B) ? M : B;
+}
+
+void color_desaturate(char *filename){
+    int width, height, channels;
+    unsigned char *data = NULL;
+
+    read_image_data (filename, &data, &width, &height,  &channels);
+
+    unsigned char *desaturate = (unsigned char *)malloc(width * height * channels);
+
+    for (int j = 0; j < height; j++) {
+        for (int i = 0; i < width; i++) {
+
+            int idx = (j * width + i) * channels;
+
+            int R = data[idx];
+            int G = data[idx + 1];
+            int B = data[idx + 2];
+
+            int new_val = (min(R, G, B) + max(R, G, B)) / 2;
+
+            desaturate[idx] = new_val;
+            desaturate[idx + 1] = new_val;
+            desaturate[idx + 2] = new_val;
+            }
+        }
+
+    if (write_image_data("image_out.bmp", desaturate, width, height) != 0) {
+        free_image_data(desaturate);
+    }
+}
+
+
+
 void scale_crop(char *filename, int center_x, int center_y, int crop_width, int crop_height){
     int width, height, channels;
     unsigned char *data = NULL;
@@ -361,7 +403,6 @@ void scale_crop(char *filename, int center_x, int center_y, int crop_width, int 
     int start_x = center_x - crop_width / 2;
     int start_y = center_y - crop_height / 2;
 
-    // Clamp pour rester dans les limites
     if (start_x < 0) start_x = 0;
     if (start_y < 0) start_y = 0;
     if (start_x + crop_width > width) crop_width = width - start_x;
@@ -374,7 +415,6 @@ void scale_crop(char *filename, int center_x, int center_y, int crop_width, int 
         return;
     }
 
-    // Copier les pixels du crop
     for (int y = 0; y < crop_height; y++) {
         for (int x = 0; x < crop_width; x++) {
             for (int c = 0; c < channels; c++) {

@@ -125,7 +125,13 @@ int main(int argc, char **argv) {
     
   }
 
-  else if (strcmp(configuration.command, "scale_crop") == 0) {
+  else if ( strncmp( configuration.command, "color_desaturate", 16 ) == 0 ) {
+    
+      color_desaturate(configuration.filenames[0]);
+    
+  }
+
+   /*else if (strcmp(configuration.command, "scale_crop") == 0) {
     // Trouve dans argv la position de "-c"
     int pos_c = -1;
     for (int j = 1; j < argc; j++) {
@@ -135,7 +141,7 @@ int main(int argc, char **argv) {
         }
     }
     if (pos_c != -1 && pos_c + 5 < argc) {
-        int cx = atoi(argv[pos_c + 2]); // pos_c+1 = "scale_crop", pos_c+2 = center_x
+        int cx = atoi(argv[pos_c + 2]);
         int cy = atoi(argv[pos_c + 3]);
         int w = atoi(argv[pos_c + 4]);
         int h = atoi(argv[pos_c + 5]);
@@ -144,6 +150,7 @@ int main(int argc, char **argv) {
         printf("Paramètres insuffisants pour scale_crop.\n");
     }
 }
+*/
 
   else if (strncmp( configuration.command, "max_pixel", 11 ) == 0 ) {
     
