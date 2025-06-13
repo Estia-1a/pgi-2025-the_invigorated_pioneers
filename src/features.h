@@ -50,5 +50,7 @@ void min_component(char *filename , char component);
 
 void stat_report(char *filename);
 
+void scale_nearest(char *filnename, float scale);
+
 
 #endif
