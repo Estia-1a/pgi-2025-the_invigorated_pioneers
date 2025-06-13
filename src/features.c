@@ -366,8 +366,6 @@ void color_desaturate(char *filename){
 
     read_image_data (filename, &data, &width, &height,  &channels);
 
-    unsigned char *desaturate = (unsigned char *)malloc(width * height * channels);
-
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
 
@@ -379,14 +377,14 @@ void color_desaturate(char *filename){
 
             int new_val = (min(R, G, B) + max(R, G, B)) / 2;
 
-            desaturate[idx] = new_val;
-            desaturate[idx + 1] = new_val;
-            desaturate[idx + 2] = new_val;
+            data[idx] = new_val;
+            data[idx + 1] = new_val;
+            data[idx + 2] = new_val;
             }
         }
 
-    if (write_image_data("image_out.bmp", desaturate, width, height) != 0) {
-        free_image_data(desaturate);
+    if (write_image_data("image_out.bmp", data, width, height) != 0) {
+        free_image_data(data);
     }
 }
 
