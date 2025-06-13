@@ -611,13 +611,13 @@ void scale_nearest(char *filename, float scale)
         printf("Erreur lors de la lecture de l'image.\n");
         return;
     }
-    int new_width = (int)(width * scale);
-    int new_height = (int)(height * scale);
+    int neww = (int)(width * scale);
+    int newh = (int)(height * scale);
 
-    unsigned char *scaled_data = (unsigned char*)malloc(new_width * new_height * channels);
+    unsigned char *scaled_data = (unsigned char*)malloc(neww * newh * channels);
     
-    for (int y = 0; y < new_height; y++){
-        for (int x = 0; x < new_width; x++){
+    for (int y = 0; y < newh; y++){
+        for (int x = 0; x < newh; x++){
             int ox = (int)(x / scale);
             int oy = (int)(y / scale);
 
@@ -626,12 +626,12 @@ void scale_nearest(char *filename, float scale)
 
             for (int cc = 0; cc < channels; cc++){
                 int src_idx = (oy * width + ox) * channels + cc;
-                int dst_idx = (y * new_width + x) * channels + cc;
+                int dst_idx = (y * neww + x) * channels + cc;
                 scaled_data[dst_idx] = data[src_idx];
             }
         }
     }
-    if(write_image_data("image_out.bmp", scaled_data, new_width, new_height) !=0) {
+    if(write_image_data("image_out.bmp", scaled_data, neww, newh) !=0) {
         free_image_data(scaled_data);
     }
     free_image_data(data);
