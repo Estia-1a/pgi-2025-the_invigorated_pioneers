@@ -609,13 +609,13 @@ void scale_nearest(char *filename, float scale)
         printf("Erreur lors de la lecture de l'image.\n");
         return;
     }
-    int neww = (int)(width * scale);
-    int newh = (int)(height * scale);
+    int new_width = (int)(width * scale);
+    int new_height = (int)(height * scale);
 
-    unsigned char *scaled_data = (unsigned char*)malloc(neww * newh * channels);
+    unsigned char *scaled_data = (unsigned char*)malloc(new_width * new_height * channels);
     
-    for (int y = 0; y < newh; y++){
-        for (int x = 0; x < newh; x++){
+    for (int y = 0; y < new_height; y++){
+        for (int x = 0; x < new_width; x++){
             int ox = (int)(x / scale);
             int oy = (int)(y / scale);
 
@@ -624,13 +624,79 @@ void scale_nearest(char *filename, float scale)
 
             for (int cc = 0; cc < channels; cc++){
                 int src_idx = (oy * width + ox) * channels + cc;
-                int dst_idx = (y * neww + x) * channels + cc;
+                int dst_idx = (y * new_width + x) * channels + cc;
                 scaled_data[dst_idx] = data[src_idx];
             }
         }
     }
-    if(write_image_data("image_out.bmp", scaled_data, neww, newh) !=0) {
+    if(write_image_data("image_out.bmp", scaled_data, new_width, new_height) !=0) {
         free_image_data(scaled_data);
     }
     free_image_data(data);
+}
+int arrondie_neg(float x) {
+    int i = (int)x;
+    return (x < 0.f && x != (float)i) ? i - 1 : i;
+}
+ 
+int arrondie_pos(float x) {
+    return (int)(x + 0.5f);
+}
+ 
+int intervalle(int v, int max) {
+    if (v < 0) return 0;
+    if (v > max) return max;
+    return v;
+}
+ 
+void scale_bilinear(char *filename, float scale) {
+ 
+    int width, height, channels;
+    unsigned char *data = NULL;
+ 
+    read_image_data(filename, &data, &width, &height, &channels);
+ 
+    int neww = arrondie_pos(width * scale);
+    int newh = arrondie_pos(height * scale);
+    unsigned char *scaled_data = (unsigned char *)malloc((size_t)neww * newh * channels);
+ 
+    for (int y = 0; y < newh; ++y) {
+        float src_y = (y + 0.5f) / scale - 0.5f;
+        int y0 = arrondie_neg(src_y);
+        int y1 = y0 + 1;
+        float wy = src_y - (float)y0;
+ 
+        y0 = intervalle(y0, height - 1);
+        y1 = intervalle(y1, height - 1);
+ 
+        for (int x = 0; x < neww; ++x) {
+            float src_x = (x + 0.5f) / scale - 0.5f;
+            int x0 = arrondie_neg(src_x);
+            int x1 = x0 + 1;
+            float wx = src_x - (float)x0;
+ 
+            x0 = intervalle(x0, width - 1);
+            x1 = intervalle(x1, width - 1);
+ 
+            for (int c = 0; c < channels; ++c) {
+                int idx_q11 = (y0 * width + x0) * channels + c;
+                int idx_q12 = (y0 * width + x1) * channels + c;
+                int idx_q21 = (y1 * width + x0) * channels + c;
+                int idx_q22 = (y1 * width + x1) * channels + c;
+ 
+                float top = (1.f - wx) * data[idx_q11] + wx * data[idx_q12];
+                float bottom = (1.f - wx) * data[idx_q21] + wx * data[idx_q22];
+                float value = (1.f - wy) * top + wy * bottom;
+ 
+                int v = arrondie_pos(value);
+                v = intervalle(v, 255);
+ 
+                int dst_idx = (y * neww + x) * channels + c;
+                scaled_data[dst_idx] = (unsigned char)v;
+            }
+        }
+    }
+ 
+    write_image_data("image_out.bmp", scaled_data, neww, newh);
+    free_image_data(scaled_data);
 }
