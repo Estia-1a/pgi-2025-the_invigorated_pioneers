@@ -416,7 +416,9 @@ void scale_crop(char *filename, int center_x, int center_y, int crop_width, int 
     }
 
      if (write_image_data("image_out.bmp", crop, crop_width, crop_height) != 0) {
+        free_image_data(data);
         free_image_data(crop);
+        
     }
 }
 
