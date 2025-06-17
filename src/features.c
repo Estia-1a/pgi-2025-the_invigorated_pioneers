@@ -661,7 +661,7 @@ void scale_bilinear(char *filename, float scale) {
     int new_height = arrondie_pos(height * scale);
     unsigned char *scaled_data = (unsigned char *)malloc((size_t)new_width * new_height * channels);
     
-    for (int y = 0; y < new_height; ++y) {
+    for (int y = 0; y < new_height; y++) {
         float src_y = (y + 0.5f) / scale - 0.5f;
         int y0 = arrondie_neg(src_y);
         int y1 = y0 + 1;
@@ -670,7 +670,7 @@ void scale_bilinear(char *filename, float scale) {
         y0 = intervalle(y0, height - 1);
         y1 = intervalle(y1, height - 1);
         
-        for (int x = 0; x < new_width; ++x) {
+        for (int x = 0; x < new_width; x++) {
             float src_x = (x + 0.5f) / scale - 0.5f;
             int x0 = arrondie_neg(src_x);
             int x1 = x0 + 1;
@@ -679,7 +679,7 @@ void scale_bilinear(char *filename, float scale) {
             x0 = intervalle(x0, width - 1);
             x1 = intervalle(x1, width - 1);
             
-            for (int c = 0; c < channels; ++c) {
+            for (int c = 0; c < channels; c++) {
                 int idx1 = (y0 * width + x0) * channels + c;
                 int idx2 = (y0 * width + x1) * channels + c;
                 int idx3 = (y1 * width + x0) * channels + c;
