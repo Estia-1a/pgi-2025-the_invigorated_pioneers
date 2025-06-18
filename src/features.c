@@ -393,16 +393,38 @@ void scale_crop(char *filename, int center_x, int center_y, int crop_width, int 
     unsigned char *data = NULL;
 
     read_image_data(filename, &data, &width, &height, &channels);
+    
+    if (data == NULL) {
+        return;
+    }
 
     int start_x = center_x - crop_width / 2;
     int start_y = center_y - crop_height / 2;
 
-    if (start_x < 0) start_x = 0;
-    if (start_y < 0) start_y = 0;
-    if (start_x + crop_width > width) crop_width = width - start_x;
-    if (start_y + crop_height > height) crop_height = height - start_y;
+    if (start_x < 0) {
+        start_x = 0;
+    }
+    if (start_y < 0) {
+        start_y = 0;
+    }
+    if (start_x + crop_width > width) {
+        crop_width = width - start_x;
+    }
+    if (start_y + crop_height > height){
+         crop_height = height - start_y;
+        }
+    
+    if (crop_width <= 0 || crop_height <= 0) {
+        free_image_data(data);
+        return;
+    }
 
     unsigned char *crop = (unsigned char *)malloc(crop_width * crop_height * channels);
+
+    if (crop == NULL) {
+        free_image_data(data);
+        return;
+    }
 
     for (int y = 0; y < crop_height; y++){
         for (int x = 0; x < crop_width; x++){
@@ -415,11 +437,11 @@ void scale_crop(char *filename, int center_x, int center_y, int crop_width, int 
         }
     }
 
-     if (write_image_data("image_out.bmp", crop, crop_width, crop_height) != 0) {
-        free_image_data(data);
-        free_image_data(crop);
+    write_image_data("image_out.bmp", crop, crop_width, crop_height);
+    free_image_data(data);
+    free_image_data(crop);
         
-    }
+    
 }
 
 void max_pixel(char *filename)
@@ -642,7 +664,7 @@ int arrondie_neg(float x) {
 }
 
 int arrondie_pos(float x) {
-    return (int)(x + 0.5f);
+    return (x >= 0.f) ? (int)(x + 0.5f) : (int)(x - 0.5f);
 }
 
 int intervalle(int val, int max) {
@@ -650,16 +672,24 @@ int intervalle(int val, int max) {
     if (val > max) return max;
     return val;
 }
-
 void scale_bilinear(char *filename, float scale) {
     int width, height, channels;
     unsigned char *data = NULL;
     
     read_image_data(filename, &data, &width, &height, &channels);
+
+   if (data == NULL) {
+       return;
+   }
     
     int new_width = arrondie_pos(width * scale);
     int new_height = arrondie_pos(height * scale);
     unsigned char *scaled_data = (unsigned char *)malloc((size_t)new_width * new_height * channels);
+
+      if (scaled_data == NULL) {
+       free_image_data(data);
+       return;
+   }
     
     for (int y = 0; y < new_height; y++) {
         float src_y = (y + 0.5f) / scale - 0.5f;
@@ -700,4 +730,5 @@ void scale_bilinear(char *filename, float scale) {
     
     write_image_data("image_out.bmp", scaled_data, new_width, new_height);
     free_image_data(scaled_data);
+    free_image_data(data);
 }
